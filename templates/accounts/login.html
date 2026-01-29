@@ -1,0 +1,77 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+  </head>
+  <body>
+    <div class="auth-container">
+      <div class="auth-header">
+        <div class="auth-logo">
+          <div class="logo-icon">
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 19H11V17H13V19ZM15.07 11.25L14.17 12.17C13.45 12.9 13 13.5 13 15H11V14.5C11 13.4 11.45 12.4 12.17 11.67L13.41 10.41C13.78 10.05 14 9.55 14 9C14 7.9 13.1 7 12 7C10.9 7 10 7.9 10 9H8C8 6.79 9.79 5 12 5C14.21 5 16 6.79 16 9C16 9.88 15.64 10.68 15.07 11.25Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+          <h1 class="logo-title">AskMe</h1>
+        </div>
+        <p class="auth-subtitle">Welcome back</p>
+      </div>
+
+      <div class="auth-card">
+        <div class="card-header">
+          <h2>Sign in to your account</h2>
+          <p>Enter your credentials to continue</p>
+        </div>
+
+        <form class="auth-form" method="POST" action="{% url 'login' %}">
+          {% csrf_token %}
+
+          <!-- Username -->
+          <div class="form-group">
+            {{ form.username.label_tag }} {{ form.username }}
+            {% if form.username.errors %}
+              <div class="error">{{ form.username.errors }}</div>
+            {% endif %}
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            {{ form.password.label_tag }} {{ form.password }}
+            {% if form.password.errors %}
+              <div class="error">{{ form.password.errors }}</div>
+            {% endif %}
+          </div>
+
+          <!-- Remember Me -->
+          <div class="form-options">
+            <label class="checkbox-label">
+              {{ form.remember_me }}
+              <span>Remember me</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-submit">Sign In</button>
+
+          <div class="form-footer">
+            <p>
+              Don't have an account? <a href="{% url 'register' %}">Sign Up</a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
