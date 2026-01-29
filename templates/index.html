@@ -3,10 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ask Questions. Get Answers.</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Developer.FM</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/header.css">
   </head>
   <body>
+    {% include 'partials/header.html' %}
     <main class="main-hero">
       <div class="hero-icon">
         <img
@@ -102,5 +105,8 @@
       </p>
       <a href="#" class="btn btn-primary">Create Your Account</a>
     </section>
+
+    <!-- Include Footer -->
+    {% include 'partials/footer.html' %}
   </body>
 </html>
