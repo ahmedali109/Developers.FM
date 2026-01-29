@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'apps.core',
+    'apps.accounts',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,10 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 TEMPLATES[0]['OPTIONS']['context_processors'] += [
     'django.template.context_processors.static',
 ]
+
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+
+AUTH_USER_MODEL = 'accounts.User'
