@@ -1,4 +1,4 @@
-## ⚙️ Setup Instructions
+# ⚙️ Setup Instructions
 
 ```bash
 # Create virtual environment
@@ -21,3 +21,4 @@ python manage.py collectstatic --noinput
 
 # Run development server
 python manage.py runserver
+```
