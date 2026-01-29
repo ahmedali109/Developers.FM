@@ -104,13 +104,35 @@ body {
   gap: 0.5rem;
 }
 
-.form-group label {
+.form-group label,
+label {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #d0d0d0;
+  color: #ffffff !important;
+  display: block;
+  margin-bottom: 0.5rem;
 }
 
-.form-group input {
+/* تنسيق رسائل الأخطاء */
+.error,
+.errorlist,
+.helptext,
+ul.errorlist {
+  color: #ff6b6b !important;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  list-style: none;
+  padding: 0;
+}
+
+.errorlist li {
+  margin-bottom: 0.25rem;
+  color: #ff6b6b !important;
+}
+
+.form-group input,
+input[type="text"],
+input[type="password"] {
   width: 100%;
   padding: 0.875rem 1rem;
   font-size: 0.95rem;
@@ -122,11 +144,14 @@ body {
   outline: none;
 }
 
-.form-group input::placeholder {
+.form-group input::placeholder,
+input::placeholder {
   color: #808090;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
   border-color: #7c3aed;
   background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
@@ -145,7 +170,7 @@ body {
   gap: 0.5rem;
   cursor: pointer;
   font-size: 0.9rem;
-  color: #d0d0d0;
+  color: #ffffff;
 }
 
 .checkbox-label input[type="checkbox"] {
@@ -157,6 +182,7 @@ body {
 
 .checkbox-label span {
   user-select: none;
+  color: #ffffff;
 }
 
 .forgot-link {

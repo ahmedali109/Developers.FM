@@ -1,58 +1,59 @@
+{% load static %}
+
 <header class="header">
   <div class="header-container">
+    <!-- Logo -->
     <div class="header-brand">
       <a href="/" class="header-logo">
         <div class="logo-icon">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 19H11V17H13V19ZM15.07 11.25L14.17 12.17C13.45 12.9 13 13.5 13 15H11V14.5C11 13.4 11.45 12.4 12.17 11.67L13.41 10.41C13.78 10.05 14 9.55 14 9C14 7.9 13.1 7 12 7C10.9 7 10 7.9 10 9H8C8 6.79 9.79 5 12 5C14.21 5 16 6.79 16 9C16 9.88 15.64 10.68 15.07 11.25Z"
-              fill="white"
-            />
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 19H11V17H13V19ZM15.07 11.25L14.17 12.17C13.45 12.9 13 13.5 13 15H11V14.5C11 13.4 11.45 12.4 12.17 11.67L13.41 10.41C13.78 10.05 14 9.55 14 9C14 7.9 13.1 7 12 7C10.9 7 10 7.9 10 9H8C8 6.79 9.79 5 12 5C14.21 5 16 6.79 16 9C16 9.88 15.64 10.68 15.07 11.25Z" fill="white"/>
           </svg>
         </div>
-        <span class="logo-text">Developer.FM</span>
+        <span class="logo-text">Developers.FM</span>
       </a>
     </div>
 
-     <div class="header-auth">
-      <div class="auth-buttons">
-        <a href="/auth/login" class="btn-login">Login</a>
-        <a href="/auth/register" class="btn-signup">Sign Up</a>
-      </div>
+    <!-- Auth / Profile -->
+    <div class="header-auth">
+      {% if user.is_authenticated %}
+        <div class="user-profile">
+          <div class="profile-dropdown">
+            <button class="profile-button">
+              {% if user.avatar %}
+                <img src="{{ user.avatar.url}}" alt="Profile" class="profile-avatar" />
+              {% else %}
+                <img src="{% static 'avatars/default.png' %}" alt="Default Avatar" class="profile-avatar" />
+              {% endif %}
+              <span class="profile-name">{{ user.username }}</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6L8 10L12 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
 
-      <!-- When user IS logged in (uncomment to use) -->
-      <!-- <div class="user-profile">
-        <div class="profile-dropdown">
-          <button class="profile-button">
-            <img src="https://ui-avatars.com/api/?name=User+Name&background=7c3aed&color=fff" alt="Profile" class="profile-avatar">
-            <span class="profile-name">User Name</span>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 6L8 10L12 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-          <div class="dropdown-menu">
-            <a href="/profile" class="dropdown-item">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 8C10.21 8 12 6.21 12 4C12 1.79 10.21 0 8 0C5.79 0 4 1.79 4 4C4 6.21 5.79 8 8 8ZM8 10C5.33 10 0 11.34 0 14V16H16V14C16 11.34 10.67 10 8 10Z" fill="currentColor"/>
-              </svg>
-              Profile
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="/logout" class="dropdown-item logout">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 14H3C2.73478 14 2.48043 13.8946 2.29289 13.7071C2.10536 13.5196 2 13.2652 2 13V3C2 2.73478 2.10536 2.48043 2.29289 2.29289C2.48043 2.10536 2.73478 2 3 2H6M11 11L14 8M14 8L11 5M14 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Logout
-            </a>
+            <div class="dropdown-menu">
+              <a href="{% url 'profile' %}" class="dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 8C10.21 8 12 6.21 12 4C12 1.79 10.21 0 8 0C5.79 0 4 1.79 4 4C4 6.21 5.79 8 8 8ZM8 10C5.33 10 0 11.34 0 14V16H16V14C16 11.34 10.67 10 8 10Z" fill="currentColor"/>
+                </svg>
+                Profile
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="{% url 'logout' %}" class="dropdown-item logout">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 14H3C2.73478 14 2.48043 13.8946 2.29289 13.7071C2.10536 13.5196 2 13.2652 2 13V3C2 2.73478 2.10536 2.48043 2.29289 2.29289C2.48043 2.10536 2.73478 2 3 2H6M11 11L14 8M14 8L11 5M14 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Logout
+              </a>
+            </div>
           </div>
         </div>
-      </div> -->
+      {% else %}
+        <div class="auth-buttons">
+          <a href="{% url 'login' %}" class="btn-login">Login</a>
+          <a href="{% url 'register' %}" class="btn-signup">Sign Up</a>
+        </div>
+      {% endif %}
     </div>
   </div>
 </header>
