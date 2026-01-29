@@ -36,77 +36,75 @@
           <p>Fill in your details to get started</p>
         </div>
 
-        <!-- Form Django -->
         <form class="auth-form" method="POST" enctype="multipart/form-data" action="{% url 'register' %}">
           {% csrf_token %}
 
-          <!-- Username -->
           <div class="form-group">
             {{ form.username.label_tag }}
             {{ form.username }}
             {% if form.username.errors %}
-              <div class="error">{{ form.username.errors }}</div>
+            <div class="error">{{ form.username.errors }}</div>
             {% endif %}
           </div>
 
-          <!-- Full Name -->
           <div class="form-group">
             {{ form.name.label_tag }}
             {{ form.name }}
             {% if form.name.errors %}
-              <div class="error">{{ form.name.errors }}</div>
+            <div class="error">{{ form.name.errors }}</div>
             {% endif %}
           </div>
 
-          <!-- Email -->
           <div class="form-group">
             {{ form.email.label_tag }}
             {{ form.email }}
             {% if form.email.errors %}
-              <div class="error">{{ form.email.errors }}</div>
+            <div class="error">{{ form.email.errors }}</div>
             {% endif %}
           </div>
 
-          <!-- Password1 -->
           <div class="form-group">
             {{ form.password1.label_tag }}
             {{ form.password1 }}
             {% if form.password1.errors %}
-              <div class="error">{{ form.password1.errors }}</div>
+            <div class="error">{{ form.password1.errors }}</div>
             {% endif %}
           </div>
 
-          <!-- Password2 -->
           <div class="form-group">
             {{ form.password2.label_tag }}
             {{ form.password2 }}
             {% if form.password2.errors %}
-              <div class="error">{{ form.password2.errors }}</div>
+            <div class="error">{{ form.password2.errors }}</div>
             {% endif %}
           </div>
 
-          <!-- Allow Anonymous -->
-          <div class="form-group toggle-group">
-            {{ form.allow_anonymous.label_tag }}
-            {{ form.allow_anonymous }}
+          <div class="toggle-group">
+            <div class="toggle-content">
+              <div class="toggle-text">
+                <span class="toggle-label">Allow anonymous questions</span>
+                <span class="toggle-description">Let others ask you questions anonymously</span>
+              </div>
+              <label class="toggle-switch">
+                {{ form.allow_anonymous }}
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
             {% if form.allow_anonymous.errors %}
-              <div class="error">{{ form.allow_anonymous.errors }}</div>
+            <div class="error">{{ form.allow_anonymous.errors }}</div>
             {% endif %}
           </div>
 
-          <!-- Avatar Upload -->
           <div class="form-group">
             {{ form.avatar.label_tag }}
             {{ form.avatar }}
             {% if form.avatar.errors %}
-              <div class="error">{{ form.avatar.errors }}</div>
+            <div class="error">{{ form.avatar.errors }}</div>
             {% endif %}
           </div>
 
-          <!-- Submit Button -->
           <button type="submit" class="btn-submit">Create Account</button>
 
-          <!-- Footer -->
           <div class="form-footer">
             <p>Already have an account? <a href="{% url 'login' %}">Sign In</a></p>
           </div>

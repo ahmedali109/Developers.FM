@@ -104,13 +104,66 @@ body {
   gap: 0.5rem;
 }
 
-.form-group label {
+.form-group label,
+label {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #d0d0d0;
+  color: #ffffff !important;
+  display: block;
+  margin-bottom: 0.5rem;
 }
 
-.form-group input {
+/* تنسيق رسائل الأخطاء */
+.error,
+.errorlist,
+.helptext,
+ul.errorlist {
+  color: #ff6b6b !important;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  list-style: none;
+  padding: 0;
+}
+
+.errorlist li {
+  margin-bottom: 0.25rem;
+  color: #ff6b6b !important;
+}
+
+/* تنسيق checkbox و radio من Django */
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto !important;
+  margin-right: 0.5rem;
+}
+
+/* تنسيق file input من Django */
+input[type="file"] {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+input[type="file"]::file-selector-button {
+  background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+input[type="file"]::file-selector-button:hover {
+  opacity: 0.9;
+}
+
+.form-group input,
+input[type="text"],
+input[type="email"],
+input[type="password"] {
   width: 100%;
   padding: 0.875rem 1rem;
   font-size: 0.95rem;
@@ -122,11 +175,15 @@ body {
   outline: none;
 }
 
-.form-group input::placeholder {
+.form-group input::placeholder,
+input::placeholder {
   color: #808090;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
   border-color: #7c3aed;
   background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
@@ -172,10 +229,12 @@ body {
   flex-shrink: 0;
 }
 
-.toggle-switch input {
+.toggle-switch input,
+.toggle-switch input[type="checkbox"] {
   opacity: 0;
   width: 0;
   height: 0;
+  position: absolute;
 }
 
 .toggle-slider {
