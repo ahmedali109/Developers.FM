@@ -4,6 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token }}" />
     <title>Profile - AskMe</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/header.css' %}" />
@@ -98,14 +99,21 @@
                 {{ message.content|truncatewords:20 }}
               </p>
               <div class="message-footer">
-                <span class="message-stat">
-                  <span class="icon">💬</span>
-                  <span>{{ message|reply_count }} Answers</span>
-                </span>
-                <span class="message-stat">
-                  <span class="icon">👤</span>
-                  <span>To: {% if message.receiver %}{{ message.receiver.username }}{% else %}Unknown{% endif %}</span>
-                </span>
+                <div class="message-stats">
+                  <span class="message-stat">
+                    <span class="icon">💬</span>
+                    <span>{{ message|reply_count }} Answers</span>
+                  </span>
+                  <span class="message-stat">
+                    <span class="icon">👤</span>
+                    <span>To: {% if message.receiver %}{{ message.receiver.username }}{% else %}Unknown{% endif %}</span>
+                  </span>
+                </div>
+                <button class="btn-delete-question" data-question-id="{{ message.id }}">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M3 6h18M8 6V4c0-.6.4-1 1-1h6c.6 0 1 .4 1 1v2m-1 0v14c0 .6-.4 1-1 1H9c-.6 0-1-.4-1-1V6m3 0v11M10 9v8m4-8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
               </div>
             </div>
             {% endfor %} {% else %}
