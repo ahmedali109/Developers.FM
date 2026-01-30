@@ -28,7 +28,8 @@ body {
     var(--bg-gradient-1) 100%
   );
   color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
   min-height: 100vh;
 }
 
@@ -594,21 +595,22 @@ body {
 .user-stats {
   font-size: 13px;
   color: var(--text-tertiary);
-  margin-bottom: 16px;
   display: flex;
   justify-content: center;
   gap: 12px;
 }
 
 .user-stats span {
-  padding: 4px 12px;
+  padding: 6px 14px;
   background: rgba(124, 58, 237, 0.1);
   border-radius: 6px;
   transition: all 0.3s ease;
+  border: 1px solid rgba(124, 58, 237, 0.2);
 }
 
 .user-stats span:not(:nth-child(2n)) {
-  border: 1px solid rgba(124, 58, 237, 0.2);
+  color: var(--primary-light);
+  font-weight: 600;
 }
 
 .user-card:hover .user-stats span {
@@ -616,14 +618,8 @@ body {
   border-color: var(--primary-color);
 }
 
-.user-card-actions {
-  display: flex;
-  gap: 12px;
-  width: 100%;
-}
-
-.btn-follow {
-  padding: 12px 28px;
+.btn-ask-user {
+  padding: 10px 24px;
   background: linear-gradient(
     135deg,
     var(--primary-color),
@@ -638,70 +634,13 @@ body {
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-ask {
-  padding: 12px 28px;
-  background: transparent;
-  border: 2px solid var(--secondary-color);
-  color: var(--secondary-color);
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-ask::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
   width: 100%;
-  height: 100%;
-  background: var(--secondary-color);
-  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: -1;
+  margin-top: 16px;
 }
 
-.btn-ask:hover {
-  color: white;
-  box-shadow: 0 8px 24px rgba(251, 113, 133, 0.3);
-}
-
-.btn-ask:hover::before {
-  left: 0;
-}
-
-.btn-follow::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: translate(-50%, -50%);
-  transition: width 0.5s, height 0.5s;
-}
-
-.btn-follow:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(124, 58, 237, 0.4);
-}
-
-.btn-follow:active::after {
-  width: 300px;
-  height: 300px;
+.btn-ask-user:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
 }
 
 /* Empty State - Better Design */
