@@ -18,10 +18,14 @@
         <div class="profile-banner"></div>
         <div class="profile-info">
           <div class="profile-page-avatar">
+            {% if user.avatar %}
+            <img src="{{ user.avatar.url }}" alt="{{ user.username }}" />
+            {% else %}
             <img
               src="https://ui-avatars.com/api/?name={{ user.username }}&background=7c3aed&color=fff"
               alt="{{ user.username }}"
             />
+            {% endif %}
           </div>
           <div class="profile-details">
             <h1 class="profile-name">
@@ -243,11 +247,19 @@
           <div class="users-grid">
             {% if users %} {% for user_item in users %}
             <div class="user-card">
+              {% if user_item.avatar %}
+              <img
+                src="{{ user_item.avatar.url }}"
+                alt="{{ user_item.username }}"
+                class="user-avatar"
+              />
+              {% else %}
               <img
                 src="https://ui-avatars.com/api/?name={{ user_item.username }}&background=fb7185&color=fff"
                 alt="{{ user_item.username }}"
                 class="user-avatar"
               />
+              {% endif %}
               <h3 class="user-name">
                 {{ user_item.get_full_name|default:user_item.username }}
               </h3>
