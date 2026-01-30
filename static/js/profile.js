@@ -62,6 +62,39 @@ modal.addEventListener("click", (e) => {
   }
 });
 
+// Handle delete question buttons
+document.querySelectorAll(".btn-delete-question").forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const questionId = btn.getAttribute("data-question-id");
+    
+    if (confirm("Are you sure you want to delete this question?")) {
+      // Get CSRF token from meta tag or form
+      let csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+      if (!csrfToken) {
+        csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]')?.value;
+      }
+      
+      // Create a form and submit it
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = `/threads/delete/${questionId}/`;
+      
+      // Add CSRF token
+      if (csrfToken) {
+        const csrfInput = document.createElement("input");
+        csrfInput.type = "hidden";
+        csrfInput.name = "csrfmiddlewaretoken";
+        csrfInput.value = csrfToken;
+        form.appendChild(csrfInput);
+      }
+      
+      document.body.appendChild(form);
+      form.submit();
+    }
+  });
+});
+
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && modal.classList.contains("active")) {
     closeModal();
