@@ -66,8 +66,22 @@
         <!-- Messages From Me Tab -->
         <div class="tab-content active" id="messages-from-me">
           <div class="content-header">
-            <h2>Questions From Me</h2>
-            <p class="content-subtitle">Questions you've asked</p>
+            <div>
+              <h2>Questions From Me</h2>
+              <p class="content-subtitle">Questions you've asked</p>
+            </div>
+            <button class="btn-ask-question" id="openModalBtn">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Ask a Question
+            </button>
           </div>
 
           <!-- Messages Grid -->
@@ -133,10 +147,24 @@
         <!-- Messages To Me Tab -->
         <div class="tab-content" id="messages-to-me">
           <div class="content-header">
-            <h2>Questions To Me</h2>
-            <p class="content-subtitle">
-              Answers and responses to your messages
-            </p>
+            <div>
+              <h2>Questions To Me</h2>
+              <p class="content-subtitle">
+                Answers and responses to your messages
+              </p>
+            </div>
+            <button class="btn-ask-question" id="openModalBtn">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Ask a Question
+            </button>
           </div>
           <div class="messages-grid">
             {% if messages_to_me %} {% for message in messages_to_me %}
@@ -179,6 +207,18 @@
             <div class="empty-state">
               <p class="empty-icon">📬</p>
               <p class="empty-text">No messages received yet</p>
+              <button class="btn-ask-question" id="openModalBtn">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Ask a Question
+              </button>
             </div>
             {% endif %}
           </div>
@@ -187,8 +227,22 @@
         <!-- Feed Tab -->
         <div class="tab-content" id="feed">
           <div class="content-header">
-            <h2>Feed</h2>
-            <p class="content-subtitle">Latest questions from the community</p>
+            <div>
+              <h2>Feed</h2>
+              <p class="content-subtitle">Latest questions from the community</p>
+            </div>
+            <button class="btn-ask-question" id="openModalBtn">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Ask a Question
+            </button>
           </div>
           <div class="feed-grid">
             {% if feed %} {% for item in feed %} {% if item.sender %}
@@ -313,6 +367,18 @@
             <div class="empty-state">
               <p class="empty-icon">📭</p>
               <p class="empty-text">No feed items available</p>
+              <button class="btn-ask-question" id="openModalBtn">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Ask a Question
+              </button>
             </div>
             {% endif %}
           </div>
@@ -321,8 +387,22 @@
         <!-- Users Tab -->
         <div class="tab-content" id="users">
           <div class="content-header">
-            <h2>Users</h2>
-            <p class="content-subtitle">Connect with other community members</p>
+            <div>
+              <h2>Users</h2>
+              <p class="content-subtitle">Connect with other community members</p>
+            </div>
+            <button class="btn-ask-question" id="openModalBtn">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Ask a Question
+            </button>
           </div>
           <div class="users-grid">
             {% if users %} {% for user_item in users %}
@@ -344,11 +424,6 @@
                 {{ user_item.get_full_name|default:user_item.username }}
               </h3>
               <p class="user-handle">@{{ user_item.username }}</p>
-              <p class="user-stats">
-                <span>{{ user_item|questions_count }} Questions</span>
-                <span>•</span>
-                <span>{{ user_item|answers_count }} Answers</span>
-              </p>
               <button
                 class="btn-ask-user"
                 data-user-id="{{ user_item.id }}"
