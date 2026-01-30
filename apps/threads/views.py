@@ -99,6 +99,23 @@ def increment_view_count(request, question_id):
 
 
 @login_required
+@require_http_methods(["POST"])
+def delete_question(request, question_id):
+    """Delete a question (only by the sender)"""
+    question = get_object_or_404(Question, id=question_id)
+    
+    # Check if user is the sender
+    if question.sender != request.user:
+        messages.error(request, 'You can only delete your own questions.')
+        return redirect('profile')
+    
+    # Delete the question
+    question.delete()
+    messages.success(request, 'Question deleted successfully!')
+    return redirect('profile')
+
+
+@login_required
 def question_list(request):
     """Display all questions with pagination"""
     questions = Question.objects.filter(
