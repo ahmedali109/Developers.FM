@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 from .forms import UserRegisterForm, UserLoginForm
+
+User = get_user_model()
 
 # Register view
 def register_view(request):
@@ -35,8 +39,26 @@ def logout_view(request):
 
 
 # Profile view
-from django.contrib.auth.decorators import login_required
-
-@login_required
+@login_required(login_url='login')
 def profile_view(request):
-    return render(request, 'accounts/profile.html', {'user': request.user})
+    user = request.user
+    
+    # Fetch all users except the current user, ordered by date joined
+    all_users = User.objects.exclude(id=user.id).order_by('-date_joined')[:20]
+    
+    # Add question and answer counts to each user
+    users_with_stats = []
+    for user_obj in all_users:
+        user_obj.questions_count = getattr(user_obj, 'questions_count', 0)
+        user_obj.answers_count = getattr(user_obj, 'answers_count', 0)
+        users_with_stats.append(user_obj)
+    
+    context = {
+        'user': user,
+        'messages_from_me': [],
+        'messages_to_me': [],
+        'feed': [],
+        'users': users_with_stats,
+    }
+    
+    return render(request, 'accounts/profile.html', context)
