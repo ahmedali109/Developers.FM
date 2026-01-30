@@ -14,17 +14,22 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
 });
 
 const modal = document.getElementById("questionModal");
-const openModalBtn = document.getElementById("openModalBtn");
+const openModalBtns = document.querySelectorAll(".btn-ask-question");
 const closeModalBtn = document.getElementById("closeModalBtn");
 const cancelBtn = document.getElementById("cancelBtn");
 const receiverSelect = document.querySelector('select[name="receiver"]');
 
-if (openModalBtn) {
-  openModalBtn.addEventListener("click", () => {
+// Handle all Ask Question buttons
+openModalBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
+    // Reset the dropdown when opening from other sections
+    if (receiverSelect && !btn.getAttribute("data-user-id")) {
+      receiverSelect.value = "";
+    }
   });
-}
+});
 
 // Handle Ask buttons on user cards
 document.querySelectorAll(".btn-ask-user").forEach((btn) => {
