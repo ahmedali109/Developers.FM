@@ -199,8 +199,19 @@
           </div>
           <div class="feed-grid">
             {% if feed %} {% for item in feed %} {% if item.sender %}
-            <div class="feed-item">
+            <div class="feed-item" data-question-id="{{ item.id }}">
               <div class="feed-header">
+                {% if item.is_anonymous %}
+                <img
+                  src="https://ui-avatars.com/api/?name=Anonymous&background=6b7280&color=fff"
+                  alt="Anonymous"
+                  class="feed-avatar"
+                />
+                <div class="feed-info">
+                  <p class="feed-author">Anonymous</p>
+                  <p class="feed-time">{{ item.created_at|timesince }} ago</p>
+                </div>
+                {% else %}
                 <img
                   src="https://ui-avatars.com/api/?name={{ item.sender.username }}&background=7c3aed&color=fff"
                   alt="{{ item.sender.username }}"
@@ -212,21 +223,101 @@
                   </p>
                   <p class="feed-time">{{ item.created_at|timesince }} ago</p>
                 </div>
+                {% endif %}
               </div>
               <h3 class="feed-title">{{ item.title }}</h3>
               <p class="feed-content">{{ item.content|truncatewords:30 }}</p>
-              <div class="feed-tags">
-                {% if item.tags %} {% for tag in item.tags %}
-                <span class="tag">{{ tag }}</span>
-                {% endfor %} {% endif %}
+
+              <!-- Replies Section -->
+              <div class="replies-section">
+                {% if item.replies.all %}
+                <div class="replies-list">
+                  {% for reply in item.replies.all %}
+                  <div class="reply-item">
+                    <div class="reply-header">
+                      <img
+                        src="https://ui-avatars.com/api/?name={{ reply.sender.username }}&background=a78bfa&color=fff"
+                        alt="{{ reply.sender.username }}"
+                        class="reply-avatar-small"
+                      />
+                      <span class="reply-author"
+                        >{{
+                        reply.sender.get_full_name|default:reply.sender.username
+                        }}</span
+                      >
+                      <span class="reply-time"
+                        >{{ reply.created_at|timesince }} ago</span
+                      >
+                    </div>
+                    <p class="reply-text">{{ reply.content }}</p>
+                  </div>
+                  {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- Reply Form (Hidden by default) -->
+                <div
+                  class="reply-form-container"
+                  id="reply-form-{{ item.id }}"
+                  style="display: none"
+                >
+                  <form
+                    class="reply-form"
+                    method="post"
+                    action="{% url 'threads:add_reply' item.id %}"
+                  >
+                    {% csrf_token %}
+                    <textarea
+                      class="reply-textarea"
+                      name="content"
+                      placeholder="Write your reply..."
+                      rows="2"
+                      required
+                    ></textarea>
+                    <div class="reply-actions">
+                      <button
+                        type="button"
+                        class="btn-cancel-reply"
+                        data-question-id="{{ item.id }}"
+                      >
+                        Cancel
+                      </button>
+                      <button type="submit" class="btn-submit-reply">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+                          <path
+                            d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                        Reply
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
+
               <div class="feed-footer">
-                <span class="feed-stat"
-                  >💬 {{ item.answers_count|default:"0" }}</span
-                >
-                <span class="feed-stat"
-                  >👁️ {{ item.views_count|default:"0" }}</span
-                >
+                <span class="feed-stat">
+                  💬 {{ item.replies.count|default:"0" }}
+                </span>
+                <span class="feed-stat">
+                  👁️ {{ item.views_count|default:"0" }}
+                </span>
+                <button class="btn-reply" data-question-id="{{ item.id }}">
+                  <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  Reply
+                </button>
               </div>
             </div>
             {% endif %} {% endfor %} {% else %}
@@ -402,5 +493,51 @@
     </div>
 
     <script src="/static/js/profile.js"></script>
+    <script>
+      // Reply form toggle functions using event delegation
+      document.addEventListener("DOMContentLoaded", function () {
+        // Handle Reply button clicks
+        document.addEventListener("click", function (e) {
+          if (e.target.closest(".btn-reply")) {
+            const btn = e.target.closest(".btn-reply");
+            const questionId = btn.getAttribute("data-question-id");
+            toggleReplyForm(questionId);
+          }
+
+          // Handle Cancel button clicks
+          if (e.target.closest(".btn-cancel-reply")) {
+            const btn = e.target.closest(".btn-cancel-reply");
+            const questionId = btn.getAttribute("data-question-id");
+            hideReplyForm(questionId);
+          }
+        });
+      });
+
+      function toggleReplyForm(questionId) {
+        const form = document.getElementById("reply-form-" + questionId);
+        if (form) {
+          if (form.style.display === "none" || form.style.display === "") {
+            form.style.display = "block";
+            const textarea = form.querySelector("textarea");
+            if (textarea) {
+              textarea.focus();
+            }
+          } else {
+            form.style.display = "none";
+          }
+        }
+      }
+
+      function hideReplyForm(questionId) {
+        const form = document.getElementById("reply-form-" + questionId);
+        if (form) {
+          form.style.display = "none";
+          const textarea = form.querySelector("textarea");
+          if (textarea) {
+            textarea.value = "";
+          }
+        }
+      }
+    </script>
   </body>
 </html>

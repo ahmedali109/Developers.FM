@@ -424,7 +424,6 @@ body {
   background: var(--card-bg-hover);
   border-color: var(--primary-light);
   box-shadow: 0 12px 40px rgba(124, 58, 237, 0.2);
-  transform: translateX(4px);
 }
 
 .feed-header {
@@ -469,7 +468,7 @@ body {
 .feed-content {
   font-size: 14px;
   color: var(--text-tertiary);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   line-height: 1.6;
 }
 
@@ -491,16 +490,201 @@ body {
   font-weight: 500;
 }
 
+/* Replies Section - NEW */
+.replies-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.replies-list {
+  margin-bottom: 16px;
+}
+
+.reply-item {
+  background: rgba(124, 58, 237, 0.05);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+
+.reply-item:last-child {
+  margin-bottom: 0;
+}
+
+.reply-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.reply-avatar-small {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.reply-author {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.reply-time {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-left: auto;
+}
+
+.reply-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Reply Form Container - NEW */
+.reply-form-container {
+  margin-top: 12px;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reply-form {
+  background: rgba(124, 58, 237, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.reply-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 60px;
+  transition: all 0.2s ease;
+}
+
+.reply-textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.reply-textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+.reply-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+
+.btn-cancel-reply {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-cancel-reply:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--text-tertiary);
+}
+
+.btn-submit-reply {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--primary-color);
+  border: none;
+  color: white;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-submit-reply:hover {
+  background: var(--primary-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+}
+
+.btn-submit-reply .btn-icon {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2;
+}
+
 .feed-footer {
   display: flex;
   gap: 16px;
   padding-top: 12px;
   border-top: 1px solid var(--border-color);
+  align-items: center;
 }
 
 .feed-stat {
   font-size: 13px;
   color: var(--text-tertiary);
+}
+
+/* Reply Button - NEW */
+.btn-reply {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid var(--primary-color);
+  color: var(--primary-light);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-left: auto;
+}
+
+.btn-reply:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+}
+
+.btn-reply .btn-icon {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2;
 }
 
 /* Users Grid */
@@ -1001,6 +1185,17 @@ body {
   .btn-cancel,
   .btn-submit {
     width: 100%;
+  }
+
+  .feed-footer {
+    flex-wrap: wrap;
+  }
+
+  .btn-reply {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
+    margin-top: 8px;
   }
 }
 
