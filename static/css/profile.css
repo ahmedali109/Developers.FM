@@ -327,9 +327,16 @@ body {
 
 .message-footer {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 16px;
   padding-top: 12px;
   border-top: 1px solid var(--border-color);
+}
+
+.message-stats {
+  display: flex;
+  gap: 16px;
 }
 
 .message-stat {
@@ -342,6 +349,31 @@ body {
 
 .message-stat .icon {
   font-size: 16px;
+}
+
+.btn-delete-question {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-delete-question:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.btn-delete-question svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* Empty State Card - Light Background Style */
