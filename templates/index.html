@@ -27,8 +27,12 @@
         stay anonymous, and build meaningful conversations.
       </p>
       <div class="hero-buttons">
-        <a href="#" class="btn btn-primary">Get Started Free</a>
-        <a href="#" class="btn btn-secondary">Sign In</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}" class="btn btn-primary">Go to Your Profile</a>
+        {% else %}
+        <a href="{% url 'register' %}" class="btn btn-primary">Get Started Free</a>
+        {% endif %}
+
       </div>
     </main>
 
@@ -104,7 +108,11 @@
       <p class="cta-desc">
         Create your free account and start connecting with curious minds today.
       </p>
-      <a href="#" class="btn btn-primary">Create Your Account</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}" class="btn btn-primary">Go to Your Profile</a>
+        {% else %}
+        <a href="{% url 'register' %}" class="btn btn-primary">CREATE YOUR ACCOUNT</a>
+        {% endif %}
     </section>
 
     <!-- Include Footer -->
