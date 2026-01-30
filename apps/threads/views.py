@@ -13,8 +13,6 @@ def profile(request):
     # Get messages from me
     messages_from_me = Question.objects.filter(
         sender=request.user
-    ).annotate(
-        answers_count=Count('replies')
     ).order_by('-created_at')
 
     # Get messages to me
@@ -25,15 +23,10 @@ def profile(request):
     # Get feed (all questions with replies)
     feed = Question.objects.filter(
         sender__isnull=False
-    ).select_related('sender').prefetch_related('replies__sender').annotate(
-        replies_count=Count('replies')
-    ).order_by('-created_at')[:20]
+    ).select_related('sender').prefetch_related('replies__sender').order_by('-created_at')[:20]
 
     # Get all users except current user
-    users = User.objects.exclude(id=request.user.id).annotate(
-        questions_count=Count('sent_questions', distinct=True),
-        answers_count=Count('replies', distinct=True)
-    )
+    users = User.objects.exclude(id=request.user.id)[:20]
 
     form = QuestionForm()
 
