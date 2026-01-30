@@ -17,6 +17,8 @@ class QuestionForm(forms.ModelForm):
         question.sender = sender
         # Save whether it was asked anonymously
         question.is_anonymous = self.cleaned_data.get('ask_anonymously', False)
+        print(f"DEBUG: Saving question - sender: {sender}, is_anonymous: {question.is_anonymous}, receiver: {question.receiver}")
         if commit:
             question.save()
+            print(f"DEBUG: Question saved with ID: {question.id}")
         return question
