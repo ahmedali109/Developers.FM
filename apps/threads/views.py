@@ -8,9 +8,14 @@ from django.db.models import Count
 def ask_question_modal(request):
     if request.method == "POST":
         form = QuestionForm(request.POST)
+        print(f"DEBUG: Form valid: {form.is_valid()}")
         if form.is_valid():
+            print(f"DEBUG: Form data - receiver: {form.cleaned_data.get('receiver')}, content: {form.cleaned_data.get('content')}")
             question = form.save(sender=request.user)
-            return redirect('profile') 
+            print(f"DEBUG: Question created with sender: {question.sender}")
+            return redirect('profile')
+        else:
+            print(f"DEBUG: Form errors: {form.errors}")
     else:
         form = QuestionForm()
 
