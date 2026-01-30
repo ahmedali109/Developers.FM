@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %} {% load user_stats %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -86,14 +86,11 @@
               <div class="message-footer">
                 <span class="message-stat">
                   <span class="icon">💬</span>
-                  <span>{{ message.answers_count|default:"0" }} Answers</span>
+                  <span>{{ message|reply_count }} Answers</span>
                 </span>
                 <span class="message-stat">
                   <span class="icon">👤</span>
-                  <span
-                    >To: {% if message.receiver %}{{ message.receiver.username
-                    }}{% else %}Unknown{% endif %}</span
-                  >
+                  <span>To: {% if message.receiver %}{{ message.receiver.username }}{% else %}Unknown{% endif %}</span>
                 </span>
               </div>
             </div>
@@ -156,11 +153,7 @@
                     alt="{{ message.sender.username }}"
                     class="reply-avatar"
                   />
-                  <span
-                    >{{
-                    message.sender.get_full_name|default:message.sender.username
-                    }}</span
-                  >
+                  <span>{{ message.sender.get_full_name|default:message.sender.username }}</span>
                 </div>
                 {% else %}
                 <div class="reply-from">
@@ -240,12 +233,8 @@
                         alt="{{ reply.sender.username }}"
                         class="reply-avatar-small"
                       />
-                      <span class="reply-author"
-                        >{{
-                        reply.sender.get_full_name|default:reply.sender.username
-                        }}</span
-                      >
-                      <span class="reply-time"
+                      <span class="reply-author">{{ reply.sender.get_full_name|default:reply.sender.username }}</span>
+                      <span class="reply-time">
                         >{{ reply.created_at|timesince }} ago</span
                       >
                     </div>
@@ -356,9 +345,9 @@
               </h3>
               <p class="user-handle">@{{ user_item.username }}</p>
               <p class="user-stats">
-                <span>{{ user_item.questions_count }} Questions</span>
+                <span>{{ user_item|questions_count }} Questions</span>
                 <span>•</span>
-                <span>{{ user_item.answers_count }} Answers</span>
+                <span>{{ user_item|answers_count }} Answers</span>
               </p>
               <button
                 class="btn-ask-user"
@@ -418,8 +407,7 @@
                 <option value="">Choose a user to ask</option>
                 {% for user_item in users %}
                 <option value="{{ user_item.id }}">
-                  {{ user_item.get_full_name|default:user_item.username }} (@{{
-                  user_item.username }})
+                  {{ user_item.get_full_name|default:user_item.username }} (@{{ user_item.username }})
                 </option>
                 {% endfor %}
               </select>
