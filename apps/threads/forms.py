@@ -13,10 +13,10 @@ class QuestionForm(forms.ModelForm):
 
     def save(self, sender=None, commit=True):
         question = super().save(commit=False)
-        if sender and not self.cleaned_data.get('ask_anonymously', False):
-            question.sender = sender
-        else:
-            question.sender = None 
+        # Always save the sender to track who asked
+        question.sender = sender
+        # Save whether it was asked anonymously
+        question.is_anonymous = self.cleaned_data.get('ask_anonymously', False)
         if commit:
             question.save()
         return question

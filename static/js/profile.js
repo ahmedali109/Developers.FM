@@ -17,6 +17,7 @@ const modal = document.getElementById("questionModal");
 const openModalBtn = document.getElementById("openModalBtn");
 const closeModalBtn = document.getElementById("closeModalBtn");
 const cancelBtn = document.getElementById("cancelBtn");
+const receiverSelect = document.querySelector('select[name="receiver"]');
 
 if (openModalBtn) {
   openModalBtn.addEventListener("click", () => {
@@ -24,6 +25,23 @@ if (openModalBtn) {
     document.body.style.overflow = "hidden";
   });
 }
+
+// Handle Ask buttons on user cards
+document.querySelectorAll(".btn-ask-user").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const userId = btn.getAttribute("data-user-id");
+    const userName = btn.getAttribute("data-user-name");
+
+    // Set the selected user in the dropdown
+    if (receiverSelect) {
+      receiverSelect.value = userId;
+    }
+
+    // Open the modal
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+  });
+});
 
 const closeModal = () => {
   modal.classList.remove("active");

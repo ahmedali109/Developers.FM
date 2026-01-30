@@ -9,7 +9,7 @@ def ask_question_modal(request):
     if request.method == "POST":
         form = QuestionForm(request.POST)
         if form.is_valid():
-            form.save(sender=request.user)
+            question = form.save(sender=request.user)
             return redirect('profile') 
     else:
         form = QuestionForm()

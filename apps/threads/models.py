@@ -5,6 +5,7 @@ class Question(models.Model):
     sender = models.ForeignKey(User, null=True,on_delete=models.CASCADE, related_name="sent_questions")
     receiver = models.ForeignKey(User, null=True,on_delete=models.CASCADE, related_name="received_questions")
     content = models.TextField()
+    is_anonymous = models.BooleanField(default=False)
     status = models.CharField(
         max_length=20,
         choices=[
