@@ -40,11 +40,11 @@
         <div class="tabs-container">
           <button class="tab-btn active" data-tab="messages-from-me">
             <span class="tab-icon">📤</span>
-            <span>Messages From Me</span>
+            <span>Questions From Me</span>
           </button>
           <button class="tab-btn" data-tab="messages-to-me">
             <span class="tab-icon">📥</span>
-            <span>Messages To Me</span>
+            <span>Questions To Me</span>
           </button>
           <button class="tab-btn" data-tab="feed">
             <span class="tab-icon">📰</span>
@@ -59,51 +59,57 @@
 
       <!-- Tabs Content -->
       <section class="tabs-content">
-        <!-- Messages From Me Tab -->
-        <div class="tab-content active" id="messages-from-me">
-          <div class="content-header">
-            <h2>Messages From Me</h2>
-            <p class="content-subtitle">Questions you've asked</p>
-          </div>
-          <div class="messages-grid">
-            {% if messages_from_me %} {% for message in messages_from_me %}
-            <div class="message-card">
-              <div class="message-header">
-                <span class="message-date"
-                  >{{ message.created_at|date:"M d, Y" }}</span
-                >
-                <span class="message-badge">Q</span>
-              </div>
-              <h3 class="message-title">{{ message.title }}</h3>
-              <p class="message-content">
-                {{ message.content|truncatewords:20 }}
-              </p>
-              <div class="message-footer">
-                <span class="message-stat">
-                  <span class="icon">💬</span>
-                  <span>{{ message.answers_count|default:"0" }} Answers</span>
-                </span>
-                <span class="message-stat">
-                  <span class="icon">👁️</span>
-                  <span>{{ message.views_count|default:"0" }} Views</span>
-                </span>
-              </div>
-            </div>
-            {% endfor %} {% else %}
-            <div class="empty-state">
-              <p class="empty-icon">📝</p>
-              <p class="empty-text">
-                No messages yet. Ask your first question!
-              </p>
-            </div>
-            {% endif %}
-          </div>
-        </div>
+      <!-- Messages From Me Tab -->
+<div class="tab-content active" id="messages-from-me">
+  <div class="content-header">
+    <h2>Questions From Me</h2>
+    <p class="content-subtitle">Questions you've asked</p>
+  </div>
 
+  <!-- Messages Grid -->
+  <div class="messages-grid">
+    {% if messages_from_me %}
+      {% for message in messages_from_me %}
+      <div class="message-card">
+        <div class="message-header">
+          <span class="message-date">{{ message.created_at|date:"M d, Y" }}</span>
+          <span class="message-badge">Q</span>
+        </div>
+        <p class="message-content">{{ message.content|truncatewords:20 }}</p>
+        <div class="message-footer">
+          <span class="message-stat">
+            <span class="icon">💬</span>
+            <span>{{ message.answers_count|default:"0" }} Answers</span>
+          </span>
+          <span class="message-stat">
+            <span class="icon">👤</span>
+            <span>To: {{ message.receiver.username }}</span>
+          </span>
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+    <div class="empty-state-card">
+      <svg class="empty-icon-svg" viewBox="0 0 24 24" fill="none">
+        <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3 class="empty-title">No Questions Sent</h3>
+      <p class="empty-subtitle">Start by asking someone a question!</p>
+      <button class="btn-ask-question" id="openModalBtn">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+          <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Ask a Question
+      </button>
+    </div>
+    {% endif %}
+  </div>
+</div>
         <!-- Messages To Me Tab -->
         <div class="tab-content" id="messages-to-me">
           <div class="content-header">
-            <h2>Messages To Me</h2>
+            <h2>Questions To Me</h2>
             <p class="content-subtitle">
               Answers and responses to your messages
             </p>
@@ -236,24 +242,119 @@
       </section>
     </main>
 
-    <script>
-      // Tab switching functionality
-      document.querySelectorAll(".tab-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          // Remove active class from all buttons and contents
-          document
-            .querySelectorAll(".tab-btn")
-            .forEach((b) => b.classList.remove("active"));
-          document
-            .querySelectorAll(".tab-content")
-            .forEach((c) => c.classList.remove("active"));
+    <!-- Ask Question Modal -->
+    <div class="modal-overlay" id="questionModal">
+      <div class="modal-container">
+        <div class="modal-header">
+          <div>
+            <h2 class="modal-title">Ask a Question</h2>
+            <p class="modal-subtitle">Choose a user and ask them anything</p>
+          </div>
+          <button class="modal-close" id="closeModalBtn">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18 6L6 18M6 6L18 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
 
-          // Add active class to clicked button and corresponding content
-          btn.classList.add("active");
-          const tabId = btn.getAttribute("data-tab");
-          document.getElementById(tabId).classList.add("active");
-        });
-      });
-    </script>
+        <form
+          class="modal-form"
+          method="post"
+          action="{% url 'threads:ask_modal' %}"
+        >
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label class="form-label">Select User</label>
+            <div class="select-wrapper">
+              <select class="form-select" name="receiver" required>
+                <option value="">Choose a user to ask</option>
+                {% for user_item in users %}
+                <option value="{{ user_item.id }}">
+                  {{ user_item.get_full_name|default:user_item.username }} (@{{
+                  user_item.username }})
+                </option>
+                {% endfor %}
+              </select>
+              <svg class="select-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Your Question</label>
+            <textarea
+              class="form-textarea"
+              name="content"
+              placeholder="What would you like to ask?"
+              rows="4"
+              required
+            >
+{{ form.content.value|default_if_none:'' }}</textarea
+            >
+          </div>
+
+          <div class="form-group-inline">
+            <label class="toggle-label">
+              <span>Ask anonymously</span>
+              <input
+                type="checkbox"
+                name="ask_anonymously"
+                class="toggle-checkbox"
+                {%
+                if
+                form.ask_anonymously.value
+                %}
+                checked
+                {%
+                endif
+                %}
+              />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn-cancel" id="cancelBtn">
+              Cancel
+            </button>
+            <button type="submit" class="btn-submit">
+              <svg
+                class="btn-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Ask Question
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="/static/js/profile.js"></script>
   </body>
 </html>
