@@ -50,10 +50,10 @@ def profile_view(request):
     # Add real question and answer counts to each user
     users_with_stats = []
     for user_obj in all_users:
-        # Count questions sent by this user
-        user_obj.questions_count = Question.objects.filter(sender=user_obj).count()
+        # Count questions sent by this user (excluding null senders)
+        user_obj.questions_count = Question.objects.filter(sender=user_obj, sender__isnull=False).count()
         # Count replies/answers made by this user
-        user_obj.answers_count = Question.objects.filter(replies__sender=user_obj).count()
+        user_obj.answers_count = Question.objects.filter(replies__sender=user_obj).distinct().count()
         users_with_stats.append(user_obj)
     
     # Fetch questions sent by current user
