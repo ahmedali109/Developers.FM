@@ -26,7 +26,8 @@ from apps.core.views import landingPage
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('' , landingPage, name='landingPage'),
-    path('auth/', include('apps.accounts.urls'))
+    path('auth/', include('apps.accounts.urls')),
+    path('threads/', include('apps.threads.urls',namespace='threads'))
 ]
 
 urlpatterns += [
